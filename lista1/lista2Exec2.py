@@ -1,10 +1,11 @@
-nome = input("Digite o nome da pessoa: ")
-print(f"Olá {nome}, tudo bem?")
-dias = int(input("Digite quantos dias você viveu?: "))
+C = input("Digite o codigo do funcionario: ")
+N = int(input("Digite o numero de horas trabalhadas: "))
 
+salario = N * 10
 
-anos = (dias // 365)
-mes = int((dias % 365) / 30)
-dia = (dias % 365) % 30
+if N > 50:
+    E = (N - 50) * 20
+else:
+    E = 0
 
-print(f"Você viveu {dia} dias, {mes} meses e {anos} anos!")
+print(f"Trabalhador: {C}\n Horas totais trabalhadas: {N}\nSalario á pagar: R$ {salario}\n Salario bonus: R$ {E}")

@@ -1,0 +1,11 @@
+python -m venv venv
+
+(PowerShell)
+Get-ExecutionPolicy Restricted 
+Set-ExecutionPolicy Restricted 
+Get-ExecutionPolicy -Force
+Set-ExecutionPolicy -Force
+
+(cmd) 
+
+.\venv\scripts\activate
