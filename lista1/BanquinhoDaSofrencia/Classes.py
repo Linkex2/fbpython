@@ -6,33 +6,33 @@ class Conta:
     self.ativo = ativo
 
   def ativar(self):
-    if ativo == False:
+    if self.ativo == False:
       print("Ativando Conta...")
-      ativo=True
+      self.ativo = True
       print("Conta ativada!")
     else:
       print("Conta já está ativa.")
 
   def debito(self):
     debito = 0
-    debito = input("Insira o valor que quer retirar.")
-    if self.saldo - self.debito > 0:
-      saldo = saldo - debito
+    debito = float(input("Insira o valor que quer retirar."))
+    if self.saldo - debito > 0:
+      self.saldo = self.saldo - debito
       debito = 0
     else:
       print("Saldo insuficiente.")
       debito = 0
 
   def credito(self):
-    credito = input("Insira o valor que quer adicionar.")
+    credito = float(input("Insira o valor que quer adicionar."))
     if credito > 0:
-      saldo = saldo + credito
+      self.saldo = self.saldo + credito
     else:
       print("Insira um valor valido.")
 
 
 class Corrente(Conta):
-    def __init__(self, numero, saldo, contadorTalao, ativo = False):
+    def __init__(self, numero, saldo, contadorTalao = 0, ativo = False):
         super().__init__(numero, saldo, ativo)
         self.contadorTalao = contadorTalao
   
@@ -43,7 +43,7 @@ class Corrente(Conta):
 
             if op == "S":
                 self.contadorTalao = self.contadorTalao + 1
-                saldo = saldo - 30
+                self.saldo = self.saldo - 30
                 print("Cheque solicitado!")
             else:
                 print("Escreve direito.")
@@ -62,7 +62,7 @@ class Empresa(Conta):
             op = " "
             op = input("Quer pedir emprestimo? (S/N):").upper
             if op == "S":
-                valor = input("Quantos você quer?: R$")
+                valor = int(input("Quantos você quer?: R$"))
 
                 if valor <= self.emprestimoEmpresa:
                     self.saldo = self.saldo + valor
@@ -112,7 +112,7 @@ class Estudantil(Conta):
             op = input("Você quer usar o saldo estudantil? (S/N): ").upper()
             if op == "S":
                 valor = 0
-                valor = input("Quanto você quer retirar?")
+                valor = float(input("Quanto você quer retirar?"))
                 if valor <= self.limiteEstudantil:
                     self.saldo + valor
                     self.limiteEstudantil = self.limiteEstudantil - valor
