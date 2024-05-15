@@ -17,11 +17,11 @@ import time
 
 print("Banco da Coreia do Norte\nNos amamos dinheiro!!!")
 
-PouConta = Poupanca(None, None, None, None)
-CorreConta = Corrente(None, None,None, None)
-EmpresaConta = Empresa(None, None, None, None)
-EstudaConta = Estudantil(None, None, None, None)
-EspeciConta = Especial(None, None, None, None)
+PouConta = Poupanca(None, 0.0, None, None)
+CorreConta = Corrente(None, 0.0, 0, None)
+EmpresaConta = Empresa(None, 0.0, 10000, None)
+EstudaConta = Estudantil(None, 0.0, 5000, None)
+EspeciConta = Especial(None, 0.0, 1000, None)
 
 
 tipoConta = 0
@@ -34,11 +34,10 @@ if tipoConta == 1:
     numConta = int(input("Informe o numero da sua conta.\nSeu Numero: "))
     cursor.execute(f"Select * From poupanca Where numero = {numConta}")
     resposta = cursor.fetchall()
-
+    PouConta = Poupanca(resposta[0][1],resposta[0][4],resposta[0][3],resposta[0][2])
+    
     if len(resposta) > 0:
-        print(resposta[0][1],resposta[0][2],resposta[0][3],resposta[0][4])
-        PouConta = Poupanca(resposta[0][1],float(resposta[0][2]),resposta[0][3],resposta[0][4])
-        print('AAAAAAAAAAAAAAAAAAA',PouConta.saldo)
+
         print(f"Bem vindo usuario nº{PouConta.numero}")
 
         for x in range(1,10):
@@ -53,6 +52,8 @@ if tipoConta == 1:
                 PouConta.credito()
             elif op == "S":
                 print("Saindo...")
+                cursor.execute(f"Update poupanca Set saldo = {PouConta.saldo} Where numero = {numConta}")
+                conexao.commit()
                 break
             else: 
                 print("Movimento perdido.")
@@ -66,7 +67,15 @@ if tipoConta == 1:
 elif tipoConta == 2:
     print("WooHoo Corrente")
     tipoConta = 0
+
+    numConta = int(input("Informe o numero da sua conta.\nSeu Numero: "))
+    cursor.execute(f"Select * From corrente Where numero = {numConta}")
+
+    resposta = cursor.fetchall()
+    CorreConta = Corrente(resposta[0][1],resposta[0][4],resposta[0][3],resposta[0][2])
+    
     for x in range(1,10):
+
         print("Conta Corrente")
         print(f"Saldo atual: {CorreConta.saldo}")
         print(f"{x}º Movimento")
@@ -80,15 +89,28 @@ elif tipoConta == 2:
             CorreConta.pediTalao()
         elif op == "S":
             print("Saindo...")
+            cursor.execute(f"Update corrente Set saldo = {CorreConta.saldo} Where numero = {numConta}")
+            cursor.execute(f"Update corrente Set contadorTalao = {CorreConta.contadorTalao} Where numero = {numConta}")
+            conexao.commit()
             break
         else: 
-            
             print("Movimento perdido.")
+        cursor.execute(f"Update corrente Set saldo = {CorreConta.saldo} Where numero = {numConta}")
+        cursor.execute(f"Update corrente Set contadorTalao = {CorreConta.contadorTalao} Where numero = {numConta}")
+        conexao.commit()
     print("Obrigado por usar o nosso banco!")
 
 elif tipoConta == 3:
+
     print("WooHoo Empresa")
     tipoConta = 0
+
+    numConta = int(input("Informe o numero da sua conta.\nSeu Numero: "))
+    cursor.execute(f"Select * From empresa Where numero = {numConta}")
+
+    resposta = cursor.fetchall()
+    EmpresaConta = Empresa(resposta[0][1],resposta[0][4],resposta[0][3],resposta[0][2])
+    
     for x in range(1,10):
         print("Conta Empresarial")
         print(f"Saldo atual: {EmpresaConta.saldo}")
@@ -103,14 +125,26 @@ elif tipoConta == 3:
             EmpresaConta.pedirEmprestimo()
         elif op == "S":
             print("Saindo...")
+            cursor.execute(f"Update empresa Set saldo = {EmpresaConta.saldo} Where numero = {numConta}")
+            cursor.execute(f"Update empresa Set contadorTalao = {EmpresaConta.emprestimoEmpresa} Where numero = {numConta}")
+            conexao.commit()
             break
         else: 
             print("Movimento perdido.")
+        cursor.execute(f"Update empresa Set saldo = {EmpresaConta.saldo} Where numero = {numConta}")
+        cursor.execute(f"Update empresa Set contadorTalao = {EmpresaConta.emprestimoEmpresa} Where numero = {numConta}")
+        conexao.commit()
     print("Obrigado por usar o nosso banco!")
 
 elif tipoConta == 4:
-    print("WooHoo Estudante")
     tipoConta = 0
+    print("WooHoo Estudante")
+    numConta = int(input("Informe o numero da sua conta.\nSeu Numero: "))
+    cursor.execute(f"Select * From estudantil Where numero = {numConta}")
+
+    resposta = cursor.fetchall()
+    EstudaConta = Estudantil(resposta[0][1],resposta[0][4],resposta[0][3],resposta[0][2])
+    
     for x in range(1,10):
         print("Conta Estudantil")
         print(f"Saldo atual: {EstudaConta.saldo}")
