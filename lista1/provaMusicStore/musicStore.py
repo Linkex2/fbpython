@@ -60,7 +60,7 @@ while loop == 'S':
 
         esperar()
         read = "SELECT * FROM produtomusica WHERE descricao = %s"
-        cursor.execute(read, (criaProduto))
+        cursor.execute(read, (criaProduto.descricao))
         printProduto = cursor.fetchall()
 
         print("Produto adicionado com sucesso!!!\n")
