@@ -35,7 +35,7 @@ cabecalho()
 
 loop = 'S'
 while loop == 'S':
-    op = input("Oque você quer fazer?\n1 - Criar Produto\n2 - Listar Produtos\n3 - Alterar Produto\n4 - Deletar Produto\n5 - Cadastrar Usuario\n6 - Movimentar\n 7 - Sair\nOpção: ")
+    op = input("Oque você quer fazer?\n1 - Criar Produto\n2 - Listar Produtos\n3 - Alterar Produto\n4 - Deletar Produto\n5 - Cadastrar Usuario\n6 - Movimentar\n7 - Sair\nOpção: ")
     if op == '1':
 
         descricao = input("Qual o nome do produto?\nNome: ")
@@ -59,7 +59,7 @@ while loop == 'S':
         conexao.commit()
 
         esperar()
-        read = "SELECT * FROM produtomusica WHERE descricao = (%s)"
+        read = "SELECT * FROM produtomusica WHERE descricao = %s"
         cursor.execute(read, (criaProduto))
         printProduto = cursor.fetchall()
 
@@ -78,8 +78,8 @@ while loop == 'S':
 
         idUpdate = input("Qual ID do Produto?\nID: ")
 
-        read = "SELECT * FROM produtomusica WHERE id = (%s)"
-        cursor.execute(read, (id))
+        read = "SELECT * FROM produtomusica WHERE id_produtomusica = %s"
+        cursor.execute(read, (idUpdate))
         printProduto = cursor.fetchall()
         print(f"Produto atual: {printProduto}")
 
@@ -99,12 +99,12 @@ while loop == 'S':
         updateProduto = produto(descricao,marca,valor,estoque)
 
 
-        update = "UPDATE produtomusica SET descricao = %s, marca = %s, valor = %s, estoque = %s WHERE id = %s"
+        update = "UPDATE produtomusica SET descricao = %s, marca = %s, valor = %s, estoque = %s WHERE id_produtomusica = %s"
         cursor.execute(update, (updateProduto.descricao, updateProduto.marca, updateProduto.valor, updateProduto.estoque, idUpdate))
         conexao.commit()
 
         esperar()
-        read = "SELECT * FROM produtomusica WHERE id = (%s)"
+        read = "SELECT * FROM produtomusica WHERE id_produtomusica = %s"
         cursor.execute(read, (idUpdate))
         printProduto = cursor.fetchall()
         
@@ -116,8 +116,8 @@ while loop == 'S':
 
         idDelete = input("Qual ID do Produto?\nID: ")
 
-        read = "SELECT * FROM produtomusica WHERE id = (%s)"
-        cursor.execute(read, (id))
+        read = "SELECT * FROM produtomusica WHERE id_produtomusica = %s"
+        cursor.execute(read, (idDelete))
         printProduto = cursor.fetchall()
         print(f"Produto atual: {printProduto}")
 
@@ -127,7 +127,7 @@ while loop == 'S':
             if escolha == 'S':
                 print("Confirmado, deletando produto...")
 
-                delete = "DELETE produtomusica WHERE id = %s"
+                delete = "DELETE FROM produtomusica WHERE id_produtomusica = %s"
                 cursor.execute(delete, (idDelete))
                 conexao.commit()
 
@@ -143,7 +143,7 @@ while loop == 'S':
                 print("Cancelando processo de deleção")
                 break
             else:
-                escolha = input("Resposta errada.\nTem certeza que quer deletar esse produto? S\N\nResposta: ")
+                escolha = input("Resposta errada.\nTem certeza que quer deletar esse produto? S/N\nResposta: ")
         
 
     elif op == '5':
