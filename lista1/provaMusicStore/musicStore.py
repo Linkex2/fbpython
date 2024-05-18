@@ -139,6 +139,7 @@ while loop == 'S':
                 print("Produto deletado sucesso :(\n")
                 print(printProduto)
                 esperarRapido()
+                break
             elif escolha == 'N':
                 print("Cancelando processo de deleção")
                 break
