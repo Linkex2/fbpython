@@ -32,7 +32,7 @@ while loop == 'S':
         estoque = input('Quantos deste produto tem no estoque?\nQuantidade: ')
 
         item = Produto(codigo, nome, valor, estoque)
-        cursor.execute(f"INSERT INTO Produto (Codigo, Nome, Valor, Estoque) values ({item.codigo},{item.nome},{item.valor},{item.estoque})")
+        cursor.execute(f"INSERT INTO Produto (Codigo, Nome, Valor, Estoque) values({item.codigo},{item.nome},{item.valor},{item.estoque})")
         conexao.commit()
 
         esperar()
