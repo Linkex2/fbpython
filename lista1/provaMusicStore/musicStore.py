@@ -137,8 +137,8 @@ while loop == 'S':
                 printProduto = cursor.fetchall()
                 
                 print("Produto deletado sucesso :(\n")
-                print(printProduto)
                 esperarRapido()
+                print(printProduto)
                 break
             elif escolha == 'N':
                 print("Cancelando processo de deleção")
